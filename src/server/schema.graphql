@@ -1,0 +1,47 @@
+# Mutation for sign-up and login
+type Mutation {
+  signUp(email: String!, password: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayload
+
+  createEvent(
+    title: String!
+    description: String
+    start: String!
+    end: String!
+    allDay: Boolean!
+    repeat: String
+  ): Event!
+
+  updateEvent(
+    id: ID!
+    title: String!
+    description: String
+    start: String!
+    end: String!
+    allDay: Boolean!
+    repeat: String
+  ): Event!
+
+  deleteEvent(id: ID!): Boolean!
+}
+
+# AuthPayload type for handling tokens
+type AuthPayload {
+  token: String
+}
+
+# Event type definition
+type Event {
+  id: ID!
+  title: String!
+  description: String
+  start: String!
+  end: String!
+  allDay: Boolean!
+  repeat: String
+}
+
+# Query type to fetch events
+type Query {
+  getEvents: [Event!]!
+}
