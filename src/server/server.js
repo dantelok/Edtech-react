@@ -212,3 +212,6 @@ const server = new ApolloServer({
 server.listen().then(({ url }) => {
   console.log(`Server ready at ${url}`);
 });
+server.start().then(() => {
+  server.applyMiddleware({ app, path: "/api/graphql" });
+});

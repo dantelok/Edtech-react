@@ -22,7 +22,8 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 // Set up Apollo Client
 const client = new ApolloClient({
-  uri: 'http://localhost:4000', // Ensure this is the correct URI for your GraphQL server
+  // uri: 'http://localhost:4000', // Ensure this is the correct URI for your GraphQL server
+  uri: 'https://edtech-graphql-dantelok-danteloks-projects.vercel.app/api/graphql',
   cache: new InMemoryCache(),
 });
 
