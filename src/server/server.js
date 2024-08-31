@@ -3,9 +3,6 @@ import { gql } from 'apollo-server';
 import bcrypt from 'bcrypt'; // For password hashing
 import jwt from 'jsonwebtoken'; // For generating JWT tokens
 import mongoose from 'mongoose'; // For MongoDB integration
-import microCors from 'micro-cors';
-
-const cors = microCors({ origin: '*' });
 
 // Secret for JWT (in a real app, store this securely)
 const JWT_SECRET = 'mysecretkey';
@@ -215,16 +212,3 @@ const server = new ApolloServer({
 server.listen().then(({ url }) => {
   console.log(`Server ready at ${url}`);
 });
-
-const startServer = server.start();
-
-export default cors(async (req, res) => {
-  await startServer;
-  await server.createHandler({ path: '/api/graphql' })(req, res);
-});
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
