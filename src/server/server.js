@@ -1,8 +1,16 @@
-import { ApolloServer } from 'apollo-server';
+import { ApolloServer } from '@apollo/server';
 import { gql } from 'apollo-server';
 import bcrypt from 'bcrypt'; // For password hashing
 import jwt from 'jsonwebtoken'; // For generating JWT tokens
 import mongoose from 'mongoose'; // For MongoDB integration
+import cors from 'cors';
+import http from 'http';
+import express from 'express';
+import { expressMiddleware } from '@apollo/server/express4';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+
+const app = express();
+const httpServer = http.createServer(app);
 
 // Secret for JWT (in a real app, store this securely)
 const JWT_SECRET = 'mysecretkey';
@@ -12,8 +20,8 @@ const uri = 'mongodb+srv://dantelok93:IQ7acVrsTwvyGkHj@edtech.t5mpu.mongodb.net/
 
 console.log('MongDB start connecting...')
 await mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+  // useNewUrlParser: true,
+  // useUnifiedTopology: true,
   serverSelectionTimeoutMS: 30000,  // Increase timeout to 30 seconds
   bufferCommands: false  // Disable buffering if not connected
 }).then(() => console.log('MongoDB connected'))
@@ -193,6 +201,7 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   context: ({ req }) => {
     // Check for a JWT token in the request headers
     const token = req.headers.authorization || '';
@@ -208,13 +217,23 @@ const server = new ApolloServer({
   }
 });
 
+
+await server.start();
+
+app.use(
+  '/graphql',
+  cors({ origin: ['http://localhost:3000', 'https://edtech-react-1dd2b.web.app'] }),
+  express.json(),
+  expressMiddleware(server),
+);
+
 // Start the server
-server.listen(
-    // {
-    // cors: {
-    //   origin: 'https://edtech-react-1dd2b.web.app/', // Adjust this to your frontend's URL
-    //   // credentials: true, // Allow credentials like cookies, authorization headers, etc.
-    // }}
-  ).then(({ url }) => {
-  console.log(`Server ready at ${url}`);
+// eslint-disable-next-line no-undef
+httpServer.listen({ port: process.env.PORT || 4000 }, () => {
+  console.log(`Server ready at http://localhost:4000/graphql`);
 });
+
+// // Start the server
+// server.listen().then(({ url }) => {
+//   console.log(`Server ready at ${url}`);
+// });
