@@ -227,17 +227,8 @@ app.use(
   expressMiddleware(server),
 );
 
-// Define a dynamic host and port
-// eslint-disable-next-line no-undef
-const host = process.env.HOST || 'localhost';
-// eslint-disable-next-line no-undef
-const port = process.env.PORT || 4000;
-
-// Start the server
-// eslint-disable-next-line no-undef
-httpServer.listen({ port, host }, () => {
-  console.log(`Server ready at http://${host}:${port}/graphql`);
-});
+await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
+console.log(`🚀 Server ready at http://localhost:4000/graphql`);
 
 // Start the server
 // server.listen().then(({ url }) => {
