@@ -12,8 +12,8 @@ const uri = 'mongodb+srv://dantelok93:IQ7acVrsTwvyGkHj@edtech.t5mpu.mongodb.net/
 
 console.log('MongDB start connecting...')
 await mongoose.connect(uri, {
-  // useNewUrlParser: true,
-  // useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
   serverSelectionTimeoutMS: 30000,  // Increase timeout to 30 seconds
   bufferCommands: false  // Disable buffering if not connected
 }).then(() => console.log('MongoDB connected'))
