@@ -1,17 +1,8 @@
-// import { ApolloServer } from '@apollo/server';
 import { ApolloServer } from 'apollo-server';
 import { gql } from 'apollo-server';
 import bcrypt from 'bcrypt'; // For password hashing
 import jwt from 'jsonwebtoken'; // For generating JWT tokens
 import mongoose from 'mongoose'; // For MongoDB integration
-// import cors from 'cors';
-import http from 'http';
-import express from 'express';
-// import { expressMiddleware } from '@apollo/server/express4';
-import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
-
-const app = express();
-const httpServer = http.createServer(app);
 
 // Secret for JWT (in a real app, store this securely)
 const JWT_SECRET = 'mysecretkey';
@@ -202,7 +193,6 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   context: ({ req }) => {
     // Check for a JWT token in the request headers
     const token = req.headers.authorization || '';
@@ -217,19 +207,6 @@ const server = new ApolloServer({
     }
   },
 });
-
-
-// await server.start();
-//
-// app.use(
-//   '/graphql',
-//   cors({ origin: ['https://studio.apollographql.com', 'https://edtech-react-1dd2b.web.app'] }),
-//   express.json(),
-//   expressMiddleware(server),
-// );
-
-// await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
-// console.log(`🚀 Server ready at http://localhost:4000/graphql`);
 
 // Start the server
 server.listen().then(({ url }) => {

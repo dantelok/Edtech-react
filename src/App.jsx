@@ -23,7 +23,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 // Set up Apollo Client
 const client = new ApolloClient({
   // uri: 'http://localhost:4000', // Ensure this is the correct URI for your GraphQL server
-  uri: 'https://studio.apollographql.com/sandbox/explorer',
+  uri: 'https://edtech-react.onrender.com/',
   cache: new InMemoryCache(),
 });
 
