@@ -209,6 +209,11 @@ const server = new ApolloServer({
 });
 
 // Start the server
-server.listen().then(({ url }) => {
+server.listen({
+    cors: {
+      origin: 'http://localhost:3000', // Adjust this to your frontend's URL
+      // credentials: true, // Allow credentials like cookies, authorization headers, etc.
+    }
+  }).then(({ url }) => {
   console.log(`Server ready at ${url}`);
 });
