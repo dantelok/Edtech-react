@@ -209,11 +209,12 @@ const server = new ApolloServer({
 });
 
 // Start the server
-server.listen({
-    cors: {
-      origin: 'https://edtech-react-1dd2b.web.app/', // Adjust this to your frontend's URL
-      // credentials: true, // Allow credentials like cookies, authorization headers, etc.
-    }
-  }).then(({ url }) => {
+server.listen(
+    // {
+    // cors: {
+    //   origin: 'https://edtech-react-1dd2b.web.app/', // Adjust this to your frontend's URL
+    //   // credentials: true, // Allow credentials like cookies, authorization headers, etc.
+    // }}
+  ).then(({ url }) => {
   console.log(`Server ready at ${url}`);
 });
