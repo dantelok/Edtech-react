@@ -214,7 +214,7 @@ const server = new ApolloServer({
         throw new Error('Invalid token');
       }
     }
-  }
+  },
 });
 
 
@@ -222,7 +222,7 @@ await server.start();
 
 app.use(
   '/graphql',
-  cors({ origin: ['http://localhost:3000', 'https://edtech-react-1dd2b.web.app'] }),
+  cors({ origin: ['https://studio.apollographql.com', 'https://edtech-react-1dd2b.web.app'] }),
   express.json(),
   expressMiddleware(server),
 );
