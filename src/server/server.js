@@ -211,7 +211,7 @@ const server = new ApolloServer({
 // Start the server
 server.listen({
     cors: {
-      origin: 'http://localhost:3000', // Adjust this to your frontend's URL
+      origin: 'https://edtech-react-1dd2b.web.app/', // Adjust this to your frontend's URL
       // credentials: true, // Allow credentials like cookies, authorization headers, etc.
     }
   }).then(({ url }) => {
