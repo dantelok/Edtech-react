@@ -1,0 +1,12 @@
+opencv-python==4.9.0.80
+pytesseract
+tesseract
+Pillow
+scipy
+imutils
+google-api-python-client
+google-cloud-vision
+google-cloud-aiplatform
+vertexai
+openai
+gradio
